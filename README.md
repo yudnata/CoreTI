@@ -2,9 +2,6 @@
 
 CoreTI adalah proyek aplikasi web e-commerce fungsional yang dibangun menggunakan **PHP** prosedural dan **MySQL**. Aplikasi ini mensimulasikan toko online yang menjual komponen komputer, lengkap dengan fitur untuk pengguna dan panel admin untuk manajemen.
 
-![Tampilan Halaman Checkout](https://user-images.githubusercontent.com/9180368/239890288-7a73a948-d368-4a11-8232-a2d05f32b845.png)
-*(Anda bisa mengganti URL gambar di atas dengan URL screenshot Anda setelah diunggah ke GitHub)*
-
 ---
 
 ## Fitur Utama

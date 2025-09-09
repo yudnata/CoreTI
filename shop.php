@@ -26,25 +26,22 @@ if (isset($_POST['add_to_cart'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <?php include 'header.php'; ?>
-    <section class="home">
-        <div class="content">
-            <h3>Ultimate Hardware Solutions in Bali</h3>
-            <p>Kami menyediakan berbagai komponen berkualitas tinggi, mulai dari prosesor mutakhir, kartu grafis, motherboard, hingga aksesori pendukung lainnya. Dengan koleksi yang terus diperbarui dan layanan pelanggan yang berdedikasi, CoreTI memastikan Anda mendapatkan pengalaman berbelanja yang mudah dan memuaskan. Dapatkan solusi hardware terbaik untuk meningkatkan kinerja dan produktivitas Anda hanya di CoreTI! 💻🔧✨</p>
-            <a href="about.php" class="white-btn">discover more</a>
-        </div>
-    </section>
+    <div class="heading">
+        <h3>our shop</h3>
+        <p> <a href="home.php">home</a> / shop </p>
+    </div>
     <section class="products">
         <h1 class="title">latest products</h1>
         <div class="box-container">
             <?php
-            $select_products = mysqli_query($conn, "SELECT * FROM `products` LIMIT 6") or die('query failed');
+            $select_products = mysqli_query($conn, "SELECT * FROM `products`") or die('query failed');
             if (mysqli_num_rows($select_products) > 0) {
                 while ($fetch_products = mysqli_fetch_assoc($select_products)) {
             ?>
@@ -64,28 +61,6 @@ if (isset($_POST['add_to_cart'])) {
                 echo '<p class="empty">no products added yet!</p>';
             }
             ?>
-        </div>
-        <div class="load-more" style="margin-top: 2rem; text-align:center">
-            <a href="shop.php" class="option-btn">load more</a>
-        </div>
-    </section>
-    <section class="about">
-        <div class="flex">
-            <div class="image">
-                <img src="images/about-img.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>about us</h3>
-                <p>CoreTI menyediakan hardware berkualitas untuk kebutuhan teknologi Anda. Temukan prosesor, GPU, dan komponen komputer terbaik di sini. Upgrade teknologi Anda bersama CoreTI!</p>
-                <a href="about.php" class="btn">read more</a>
-            </div>
-        </div>
-    </section>
-    <section class="home-contact">
-        <div class="content">
-            <h3>have any questions?</h3>
-            <p>Kami di sini untuk membantu! Jelajahi dunia teknologi tanpa batas dengan CoreTI. Hubungi kami kapan saja, dan biarkan tim ahli kami membantu Anda menemukan solusi yang Anda butuhkan. 🚀✨</p>
-            <a href="contact.php" class="white-btn">contact us</a>
         </div>
     </section>
     <?php include 'footer.php'; ?>

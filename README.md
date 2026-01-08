@@ -1,64 +1,183 @@
-# CoreTI - Proyek Toko Online Komponen Komputer
+# CoreTI - E-commerce Hardware Store
 
-CoreTI adalah proyek aplikasi web e-commerce fungsional yang dibangun menggunakan **PHP** prosedural dan **MySQL**. Aplikasi ini mensimulasikan toko online yang menjual komponen komputer, lengkap dengan fitur untuk pengguna dan panel admin untuk manajemen.
+Modern PHP e-commerce application for computer hardware sales in Bali.
 
-![Tampilan Halaman Checkout](https://github.com/yudnata/CoreTI/blob/main/screenshotCoreTI.png?raw=true)
+## Directory Structure
 
----
+```
+CoreTI/
+├── public/                     # Web root (document root)
+│   ├── index.php               # Front controller
+│   ├── .htaccess               # URL rewriting
+│   └── assets/
+│       ├── css/                # Stylesheets
+│       ├── js/                 # JavaScript files
+│       ├── images/             # Static images
+│       └── uploads/            # Product images
+│
+├── app/
+│   ├── Core/                   # Framework core classes
+│   │   ├── Controller.php      # Base controller
+│   │   ├── Database.php        # PDO wrapper
+│   │   ├── Router.php          # URL routing
+│   │   └── Session.php         # Session management
+│   │
+│   ├── Controllers/
+│   │   ├── Customer/           # Customer controllers
+│   │   │   ├── AuthController.php
+│   │   │   ├── HomeController.php
+│   │   │   ├── ShopController.php
+│   │   │   ├── CartController.php
+│   │   │   ├── CheckoutController.php
+│   │   │   ├── OrderController.php
+│   │   │   └── ContactController.php
+│   │   │
+│   │   └── Admin/              # Admin controllers
+│   │       ├── DashboardController.php
+│   │       ├── ProductController.php
+│   │       ├── OrderController.php
+│   │       ├── UserController.php
+│   │       └── MessageController.php
+│   │
+│   ├── Models/                 # Data models
+│   │   ├── User.php
+│   │   ├── Product.php
+│   │   ├── Cart.php
+│   │   ├── Order.php
+│   │   └── Message.php
+│   │
+│   ├── Views/
+│   │   ├── customer/           # Customer views
+│   │   └── admin/              # Admin views
+│   │
+│   └── Helpers/
+│       └── functions.php       # Helper functions
+│
+├── config/
+│   ├── app.php                 # App configuration
+│   ├── database.php            # Database configuration
+│   └── routes.php              # Route definitions
+│
+└── database/
+    └── shop_db.sql             # Database schema
+```
 
-## Fitur Utama
+## Features
 
-Proyek ini terbagi menjadi dua bagian utama: halaman untuk pengguna (user) dan panel khusus untuk admin.
+- Modular MVC Architecture
+- PDO Database Layer with prepared statements
+- Session Management with flash messages
+- CSRF Protection
+- Password hashing with bcrypt
+- Admin Panel (Dashboard, Products, Orders, Users, Messages)
+- Customer Area (Shop, Cart, Checkout, Orders, Contact)
+- Responsive Design
 
-### Fitur Pengguna (User)
-* **Autentikasi**: Pengguna dapat mendaftar dan masuk ke akun mereka.
-* **Katalog Produk**: Menampilkan semua produk yang tersedia dengan gambar, nama, dan harga.
-* **Pencarian Produk**: Fungsionalitas untuk mencari produk berdasarkan nama.
-* **Keranjang Belanja**: Pengguna dapat menambah, melihat, memperbarui jumlah, dan menghapus produk dari keranjang.
-* **Proses Checkout**: Formulir untuk memasukkan detail pengiriman dan melakukan pemesanan.
-* **Riwayat Pesanan**: Pengguna dapat melihat semua pesanan yang telah mereka buat beserta statusnya.
-* **Halaman Kontak**: Formulir untuk mengirim pesan kepada admin.
+## Installation
 
-### Fitur Panel Admin
-* **Dashboard Informatif**: Menampilkan ringkasan data seperti total pendapatan, jumlah pesanan, produk, dan pengguna.
-* **Manajemen Produk (CRUD)**: Admin dapat menambah, melihat, mengedit, dan menghapus produk.
-* **Manajemen Pesanan**: Melihat detail pesanan dari semua pengguna dan memperbarui status pembayaran (misalnya dari 'pending' menjadi 'completed').
-* **Manajemen Pengguna**: Melihat daftar semua pengguna dan admin, serta dapat menghapus akun.
-* **Kotak Masuk Pesan**: Membaca dan menghapus pesan yang dikirim oleh pengguna melalui halaman kontak.
+### 1. Setup Database
 
----
+Buat database `shop_db` di phpMyAdmin/HeidiSQL, lalu import:
 
-## 💻 Teknologi yang Digunakan
+```sql
+-- Import file: database/shop_db.sql
+```
 
-* **Backend**: PHP
-* **Database**: MySQL
-* **Frontend**: HTML, CSS, JavaScript
-* **Server Lokal (Rekomendasi)**: XAMPP
+### 2. Configure App URL
 
----
+Edit `config/app.php` sesuai environment:
 
-## 🚀 Cara Menjalankan Proyek Secara Lokal
+```php
+return [
+    'name' => 'CoreTI',
+    'url' => 'http://localhost:8080/CoreTI/public',  // Sesuaikan
+    'timezone' => 'Asia/Makassar',
+    'debug' => true,
+    'max_upload_size' => 2097152,
+    'allowed_extensions' => ['jpg', 'jpeg', 'png', 'gif', 'webp']
+];
+```
 
-Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer Anda:
+### 3. Configure Database
 
-1.  **Clone Repositori**
-    ```bash
-    git clone https://github.com/yudnata/CoreTI.git
-    ```
+Edit `config/database.php`:
 
-2.  **Setup Server**
-    * Pindahkan folder proyek yang sudah di-clone ke dalam direktori `htdocs` pada instalasi XAMPP Anda.
+```php
+return [
+    'host' => 'localhost',
+    'database' => 'shop_db',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8mb4'
+];
+```
 
-3.  **Setup Database**
-    * Jalankan XAMPP Control Panel, lalu start **Apache** dan **MySQL**.
-    * Buka browser dan akses `http://localhost/phpmyadmin`.
-    * Buat database baru dengan nama `shop_db`.
-    * Pilih database `shop_db`, lalu klik tab **Import**.
-    * Pilih file `shop_db.sql` yang ada di dalam folder proyek dan klik **Import**.
+### 4. Copy Assets
 
-4.  **Konfigurasi Koneksi**
-    * Buka file `config.php`. Pastikan detail koneksi sudah sesuai dengan pengaturan server lokal Anda (secara *default* untuk XAMPP biasanya sudah benar).
+```cmd
+cd C:\laragon\www\CoreTI
+mkdir public\assets\images
+mkdir public\assets\uploads
+xcopy images\* public\assets\images\ /E /Y
+xcopy uploaded_img\* public\assets\uploads\ /E /Y
+```
 
-5.  **Jalankan Aplikasi**
-    * Buka browser dan akses URL: `http://localhost/CoreTI/`
-    * Aplikasi siap digunakan! Anda bisa mendaftar sebagai *user* baru atau sebagai *admin* untuk mengakses panel admin.
+### 5. Access Application
+
+```
+http://localhost:8080/CoreTI/public/
+```
+
+## URL Routes
+
+### Customer Routes
+
+| URL         | Description     |
+| ----------- | --------------- |
+| `/`         | Login page      |
+| `/login`    | Login           |
+| `/register` | Registration    |
+| `/home`     | Home page       |
+| `/shop`     | Product listing |
+| `/search`   | Search products |
+| `/cart`     | Shopping cart   |
+| `/checkout` | Checkout        |
+| `/orders`   | Order history   |
+| `/about`    | About page      |
+| `/contact`  | Contact form    |
+| `/logout`   | Logout          |
+
+### Admin Routes
+
+| URL                        | Description        |
+| -------------------------- | ------------------ |
+| `/admin`                   | Dashboard          |
+| `/admin/products`          | Product management |
+| `/admin/products/add`      | Add product        |
+| `/admin/products/edit/{id}`| Edit product       |
+| `/admin/products/delete/{id}` | Delete product  |
+| `/admin/orders`            | Order management   |
+| `/admin/users`             | User management    |
+| `/admin/messages`          | Message management |
+
+## Security Features
+
+- **Password Hashing**: bcrypt via `password_hash()`
+- **SQL Injection Prevention**: PDO prepared statements
+- **XSS Protection**: Output escaping with `htmlspecialchars()`
+- **CSRF Protection**: Token validation on forms
+- **Session Security**: Regenerate session ID on login
+
+## Requirements
+
+- PHP 8.0+
+- MySQL 5.7+ / MariaDB 10.3+
+- Apache with mod_rewrite enabled
+
+## Authors
+
+Nata & Gusde
+
+## License
+
+© 2024 CoreTI. All rights reserved.

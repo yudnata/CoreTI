@@ -2,6 +2,8 @@
 
 Modern PHP e-commerce application for computer hardware sales in Bali.
 
+![Screenshot](screenshotCoreTI.png)
+
 ## Directory Structure
 
 ```

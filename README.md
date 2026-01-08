@@ -43,7 +43,7 @@ Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer Anda:
 
 1.  **Clone Repositori**
     ```bash
-    git clone [https://github.com/yudnata/CoreTI.git](https://github.com/YUDHNATA/CoreTI.git)
+    git clone https://github.com/yudnata/CoreTI.git
     ```
 
 2.  **Setup Server**

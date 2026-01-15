@@ -18,10 +18,10 @@
 
     <div class="grow">
         @if(session('message'))
-        <div class="sticky top-0 z-50 max-w-6xl mx-auto bg-gray-100 px-8 py-4 flex items-center justify-between gap-4 shadow-md">
-            <span class="text-lg text-gray-800">{{ session('message') }}</span>
-            <i class="fas fa-times cursor-pointer text-red-500 hover:text-red-700 text-2xl transition-colors hover:rotate-90 duration-300" onclick="this.parentElement.remove();"></i>
-        </div>
+            <div class="sticky top-0 z-50 max-w-6xl mx-auto bg-gray-100 px-8 py-4 flex items-center justify-between gap-4 shadow-md">
+                <span class="text-lg text-gray-800">{{ session('message') }}</span>
+                <i class="fas fa-times cursor-pointer text-red-500 hover:text-red-700 text-2xl transition-colors hover:rotate-90 duration-300" onclick="this.parentElement.remove();"></i>
+            </div>
         @endif
 
         @yield('content')

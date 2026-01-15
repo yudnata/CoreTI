@@ -3,7 +3,7 @@
 @section('title', 'Orders - CoreTI')
 
 @section('content')
-<section class="py-16 px-4 bg-gray-50">
+<section class="py-16 px-4 bg-gray-50 min-h-screen flex items-center">
     <div class="max-w-7xl mx-auto">
         <h1 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12 uppercase">Placed Orders</h1>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">

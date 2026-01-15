@@ -15,9 +15,7 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen relative flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80"
-                alt="Background"
-                class="w-full h-full object-cover blur-lg scale-110">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80" alt="Background" class="w-full h-full object-cover blur-lg scale-110">
         </div>
         <div class="absolute inset-0 bg-black/60 z-10"></div>
 
@@ -26,11 +24,10 @@
         </a>
 
         @if(session('message'))
-        <div class="fixed top-8 right-8 z-50 bg-white rounded-lg shadow-lg p-4 max-w-md flex items-center gap-3 animate-slide-in">
-            <span class="text-gray-700">{{ session('message') }}</span>
-            <i class="fas fa-times cursor-pointer text-red-500 hover:text-red-700 transition-colors"
-                onclick="this.parentElement.remove();"></i>
-        </div>
+            <div class="fixed top-8 right-8 z-50 bg-white rounded-lg shadow-lg p-4 max-w-md flex items-center gap-3 animate-slide-in">
+                <span class="text-gray-700">{{ session('message') }}</span>
+                <i class="fas fa-times cursor-pointer text-red-500 hover:text-red-700 transition-colors" onclick="this.parentElement.remove();"></i>
+            </div>
         @endif
         <div class="relative z-20 w-full px-4">
             @yield('content')

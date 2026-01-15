@@ -3,17 +3,17 @@
 @section('title', 'Shop - CoreTI')
 
 @section('content')
-<section class="py-16 px-4 bg-gray-50">
+<section class="py-16 px-4 bg-gray-50 min-h-screen flex items-center">
     <div class="max-w-7xl mx-auto">
         <h1 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12 uppercase">All Products</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             @forelse($products as $product)
-            <form action="{{ route('add_to_cart') }}" method="post" class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+            <form action="{{ route('add_to_cart') }}" method="post" class="bg-white rounded-lg shadow-sm hover:shadow transition-all duration-300 overflow-hidden">
                 @csrf
                 <div class="relative">
                     <img class="w-full h-64 object-cover" src="{{ asset('uploaded_img/' . $product->image) }}" alt="{{ $product->name }}">
                     <div class="absolute top-4 left-4 bg-red-500 text-white px-4 py-2 rounded-lg font-bold text-xl shadow-lg">
-                        Rp{{ number_format($product->price, 0, ',', '.') }}
+                        Rp. {{ number_format($product->price, 0, ',', '.') }}
                     </div>
                 </div>
                 <div class="p-6">
@@ -22,7 +22,7 @@
                     <input type="hidden" name="name" value="{{ $product->name }}">
                     <input type="hidden" name="price" value="{{ $product->price }}">
                     <input type="hidden" name="image" value="{{ $product->image }}">
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:shadow-lg uppercase">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 uppercase">
                         Add to Cart
                     </button>
                 </div>

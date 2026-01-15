@@ -63,4 +63,104 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('message', 'Product not found!');
     }
+
+    public function editProduct($id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return redirect()->route('admin.products')->with('message', 'Product not found!');
+        }
+        return view('admin.products_edit', compact('product'));
+    }
+
+    public function updateProduct(Request $request, $id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return redirect()->route('admin.products')->with('message', 'Product not found!');
+        }
+
+        $request->validate([
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $imageName = $product->image;
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if (file_exists(public_path('uploaded_img/' . $product->image))) {
+                unlink(public_path('uploaded_img/' . $product->image));
+            }
+            // Upload new image
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('uploaded_img'), $imageName);
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'image' => $imageName,
+        ]);
+
+        return redirect()->route('admin.products')->with('message', 'Product updated successfully!');
+    }
+    public function orders()
+    {
+        $orders = Order::latest()->get();
+        return view('admin.orders', compact('orders'));
+    }
+
+    public function updatePaymentStatus(Request $request, $id)
+    {
+        $order = Order::find($id);
+        if ($order) {
+            $order->payment_status = $request->payment_status;
+            $order->save();
+            return redirect()->back()->with('message', 'Payment status updated!');
+        }
+        return redirect()->back()->with('message', 'Order not found!');
+    }
+
+    public function deleteOrder($id)
+    {
+        $order = Order::find($id);
+        if ($order) {
+            $order->delete();
+            return redirect()->back()->with('message', 'Order deleted successfully!');
+        }
+        return redirect()->back()->with('message', 'Order not found!');
+    }
+
+    public function users()
+    {
+        $users = User::latest()->get();
+        return view('admin.users', compact('users'));
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            return redirect()->back()->with('message', 'User deleted successfully!');
+        }
+        return redirect()->back()->with('message', 'User not found!');
+    }
+
+    public function messages()
+    {
+        $messages = Message::latest()->get();
+        return view('admin.messages', compact('messages'));
+    }
+
+    public function deleteMessage($id)
+    {
+        $message = Message::find($id);
+        if ($message) {
+            $message->delete();
+            return redirect()->back()->with('message', 'Message deleted successfully!');
+        }
+        return redirect()->back()->with('message', 'Message not found!');
+    }
 }

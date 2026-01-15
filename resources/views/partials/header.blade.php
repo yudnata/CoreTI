@@ -1,5 +1,5 @@
 @php
-$isHome = request()->routeIs('home');
+    $isHome = request()->routeIs('home');
 @endphp
 
 <header id="main-header" class="{{ $isHome ? 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent' : 'sticky top-0 left-0 right-0 z-50 bg-white shadow-md' }}">
@@ -13,7 +13,7 @@ $isHome = request()->routeIs('home');
                 <a href="{{ route('about') }}" class="{{ $isHome ? 'text-white hover:text-gray-200' : 'text-gray-600 hover:text-blue-600' }} transition-colors text-lg font-medium">About</a>
                 <a href="{{ route('shop') }}" class="{{ $isHome ? 'text-white hover:text-gray-200' : 'text-gray-600 hover:text-blue-600' }} transition-colors text-lg font-medium">Shop</a>
                 <a href="{{ route('contact') }}" class="{{ $isHome ? 'text-white hover:text-gray-200' : 'text-gray-600 hover:text-blue-600' }} transition-colors text-lg font-medium">Contact</a>
-                <a href="{{ route('orders') }}" class="{{ $isHome ? 'text-white hover:text-gray-200' : 'text-gray-600 hover:text-blue-600' }} transition-colors text-lg font-medium">Orders</a>
+                <a href="{{ route('cart') }}" class="{{ $isHome ? 'text-white hover:text-gray-200' : 'text-gray-600 hover:text-blue-600' }} transition-colors text-lg font-medium">Orders</a>
             </nav>
             <div class="flex items-center gap-4" id="header-icons">
                 <button id="menu-btn" class="md:hidden text-2xl {{ $isHome ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-blue-600' }} transition-colors">
@@ -31,22 +31,23 @@ $isHome = request()->routeIs('home');
             </div>
             <div id="user-box" class="hidden absolute top-full right-4 mt-4 bg-white rounded-lg shadow-2xl border border-gray-200 p-6 w-80 animate-slide-in">
                 @auth
-                <p class="text-lg text-gray-600 mb-2">Username: <span class="text-blue-600 font-semibold">{{ auth()->user()->name }}</span></p>
-                <p class="text-lg text-gray-600 mb-4">Email: <span class="text-blue-600 font-semibold">{{ auth()->user()->email }}</span></p>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:shadow-lg">
-                        Logout
-                    </button>
-                </form>
+                    <p class="text-lg text-gray-600 mb-2">Username: <span class="text-blue-600 font-semibold">{{ auth()->user()->name }}</span></p>
+                    <p class="text-lg text-gray-600 mb-4">Email: <span class="text-blue-600 font-semibold">{{ auth()->user()->email }}</span></p>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:shadow-lg">
+                            Logout
+                        </button>
+                    </form>
                 @else
-                <p class="text-center text-gray-600 mb-4">Silakan login terlebih dahulu</p>
-                <a href="{{ route('login') }}" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg text-center mb-2 transition-all duration-300 hover:shadow-lg">
-                    Login
-                </a>
-                <a href="{{ route('register') }}" class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg text-center transition-all duration-300 hover:shadow-lg">
-                    Register
-                </a>
+                    <p class="text-center text-gray-600 mb-4">Silakan login terlebih dahulu</p>
+                    <a href="{{ route('login') }}" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg text-center mb-2 transition-all duration-300 hover:shadow-lg">
+                        Login
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg text-center transition-all duration-300 hover:shadow-lg">
+                        Register
+                    </a>
                 @endauth
             </div>
         </div>
@@ -61,13 +62,13 @@ $isHome = request()->routeIs('home');
 </header>
 
 <script>
-    document.getElementById('menu-btn').addEventListener('click', function() {
+    document.getElementById('menu-btn').addEventListener('click', function () {
         document.getElementById('mobile-nav').classList.toggle('hidden');
     });
-    document.getElementById('user-btn').addEventListener('click', function() {
+    document.getElementById('user-btn').addEventListener('click', function () {
         document.getElementById('user-box').classList.toggle('hidden');
     });
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         const userBtn = document.getElementById('user-btn');
         const userBox = document.getElementById('user-box');
         if (!userBtn.contains(event.target) && !userBox.contains(event.target)) {
@@ -77,7 +78,7 @@ $isHome = request()->routeIs('home');
     const isHomePage = "{{ $isHome }}" === "1";
 
     if (isHomePage) {
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const header = document.getElementById('main-header');
             const logo = document.getElementById('logo');
             const navLinks = document.getElementById('nav-links');

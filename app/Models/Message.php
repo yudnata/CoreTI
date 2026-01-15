@@ -2,47 +2,23 @@
 
 namespace App\Models;
 
-use App\Core\Database;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Message
+class Message extends Model
 {
-    public static function all(): array
-    {
-        return Database::fetchAll("SELECT * FROM message ORDER BY id DESC");
-    }
+    use HasFactory;
 
-    public static function find(int $id): ?array
-    {
-        return Database::fetch("SELECT * FROM message WHERE id = ?", [$id]);
-    }
+    protected $fillable = [
+        'user_id',
+        'name',
+        'email',
+        'number',
+        'message',
+    ];
 
-    public static function count(): int
+    public function user()
     {
-        $result = Database::fetch("SELECT COUNT(*) as count FROM message");
-        return (int) ($result['count'] ?? 0);
-    }
-
-    public static function create(array $data): int
-    {
-        Database::query(
-            "INSERT INTO message (user_id, name, email, number, message) VALUES (?, ?, ?, ?, ?)",
-            [$data['user_id'], $data['name'], $data['email'], $data['number'], $data['message']]
-        );
-        return (int) Database::lastInsertId();
-    }
-
-    public static function delete(int $id): bool
-    {
-        Database::query("DELETE FROM message WHERE id = ?", [$id]);
-        return true;
-    }
-
-    public static function isDuplicate(array $data): bool
-    {
-        $result = Database::fetch(
-            "SELECT COUNT(*) as count FROM message WHERE name = ? AND email = ? AND number = ? AND message = ?",
-            [$data['name'], $data['email'], $data['number'], $data['message']]
-        );
-        return ($result['count'] ?? 0) > 0;
+        return $this->belongsTo(User::class);
     }
 }
